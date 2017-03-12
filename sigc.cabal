@@ -1,0 +1,22 @@
+name:                sigc
+version:             0.1.0.0
+-- synopsis:            
+-- description:         
+license:             BSD3
+license-file:        LICENSE
+author:              Edward Z. Yang
+maintainer:          ezyang@cs.stanford.edu
+-- copyright:           
+-- category:            
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=1.10
+
+executable sigc
+  main-is:             Main.hs
+  build-depends:       base >=4.8 && <4.9,
+                       haskell-src-exts,
+                       optparse-applicative,
+                       pretty,
+                       containers
+  default-language:    Haskell2010
