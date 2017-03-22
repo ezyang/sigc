@@ -33,8 +33,8 @@ main = do
     let sig_exports = moduleExports sig
         max_len = maximum (map (length . snd) sig_exports) + 1
         header =
-            text (replicate max_len ' ') <> pipe <> hcat (intersperse pipe (map renderModName mods)) $$
-            text (replicate max_len '-') <> pipe <> hcat (intersperse pipe (replicate (length mods) (text "---")))
+            pipe <+> text (replicate max_len ' ') <> pipe <> hcat (intersperse pipe (map renderModName mods)) <> pipe $$
+            pipe <> text (replicate (max_len+1) '-') <> pipe <> hcat (intersperse pipe (replicate (length mods) (text "---"))) <> pipe
     let rows = interleaveExports sig_exports sig_comments
     putStrLn . render $ vcat (map (renderRow header max_len (map snd mods)) rows)
 
@@ -68,7 +68,7 @@ renderRow :: Doc -> Int -> [Module l] -> Row -> Doc
 renderRow header _ _ (RowHeader s) =
     text "" $$ text "**" <> text s <> text "**" $$ text "" $$ header
 renderRow _header max_len mods (Row sym) =
-    text sym $$ nest max_len (pipe <+> hsep (intersperse pipe (map (renderMod sym) mods)))
+    pipe <+> (text sym $$ nest max_len (pipe <+> hsep (intersperse pipe (map (renderMod sym) mods)))) <+> pipe
 
 renderModName :: (Maybe String, Module l) -> Doc
 renderModName (Just s, _)
