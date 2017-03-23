@@ -66,9 +66,9 @@ headerComment s =
 
 renderRow :: Doc -> Int -> [Module l] -> Row -> Doc
 renderRow header _ _ (RowHeader s) =
-    text "" $$ text "**" <> text s <> text "**" $$ text "" $$ header
+    text "" $$ text "**" <> text s <> text "**" $$ text "" $+$ nest 4 header
 renderRow _header max_len mods (Row sym) =
-    pipe <+> (text sym $$ nest max_len (pipe <+> hsep (intersperse pipe (map (renderMod sym) mods)))) <+> pipe
+    nest 4 (pipe <+> (text sym $$ nest max_len (pipe <+> hsep (intersperse pipe (map (renderMod sym) mods)))) <+> pipe)
 
 renderModName :: (Maybe String, Module l) -> Doc
 renderModName (Just s, _)
